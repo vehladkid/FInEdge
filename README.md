@@ -53,6 +53,38 @@ spending habits, without the complexity of full-scale banking software.
 - Built and evaluated as a university Software Engineering assignment,
   not a production fintech product
 
+## Software Design
+
+Full design documentation lives in [`docs/design/`](docs/design/README.md).
+
+**Architecture style:** layered monolith, deployed as three containers (frontend,
+backend, PostgreSQL) through `docker-compose.yml`. This style was chosen because
+the vision document above explicitly rules out microservices and queues for this
+timeline, and because the repository's directory skeleton already implied these
+layers — the design work populated those seams rather than replacing them.
+
+**Frontend structure.** Screens in `src/pages/` compose a shared `PageShell`
+layout and a `Card` primitive, and read their data from `src/services/`. Cross
+-cutting concerns are separated out: `src/domain/categories.js` is the single
+definition of a spending category, `src/utils/format.js` handles currency
+rendering, and `src/theme.js` holds the design tokens shared by Tailwind and the
+Recharts components.
+
+**Backend structure.** `server.js` starts the process, `app.js` assembles the
+Express application and registers routes, `routes/health.js` serves `GET /`, and
+`config/index.js` is the only module that reads environment variables.
+`server.js` is still the Docker entry point.
+
+**Service/data abstraction.** Pages depend on functions such as `getBudgets()`
+and `getDashboardSummary()` rather than owning data arrays. Those functions
+currently return mock values; when real endpoints exist, their bodies call
+`services/api.js` and the pages do not change. This is the seam that lets mock
+data be replaced without rewriting the UI.
+
+**Diagrams and prototype:** not yet produced. The Draw.io sources, PNG exports,
+UI screenshots and Figma link are pending and will live in
+`docs/design/diagrams/` and `docs/design/screenshots/`.
+
 ## Branching Strategy
 
 This project follows **GitHub Flow**:

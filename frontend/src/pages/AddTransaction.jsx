@@ -1,19 +1,12 @@
 import { useState } from "react";
-import NavBar from "../components/NavBar";
-
-const CATEGORIES = [
-  "Food & Dining",
-  "Transport",
-  "Shopping",
-  "Utilities",
-  "Entertainment",
-  "Other",
-];
+import PageShell from "../layouts/PageShell";
+import Card from "../components/ui/Card";
+import { CATEGORIES } from "../domain/categories";
 
 const INITIAL_FORM = {
   amount: "",
   type: "Expense",
-  category: CATEGORIES[0],
+  category: CATEGORIES[0].label,
   date: "",
   note: "",
 };
@@ -33,16 +26,9 @@ export default function AddTransaction() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 font-sans text-slate-100">
-      <NavBar />
-
-      <main className="mx-auto max-w-xl px-6 py-10">
-        <h1 className="text-2xl font-bold text-white">Add Transaction</h1>
-
-        <form
-          onSubmit={handleSubmit}
-          className="mt-6 space-y-5 rounded-xl border border-slate-800 bg-slate-900/60 p-6"
-        >
+    <PageShell title="Add Transaction" maxWidth="max-w-xl">
+      <Card className="mt-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label className="mb-1 block text-sm font-medium text-slate-300">
               Amount
@@ -82,8 +68,10 @@ export default function AddTransaction() {
               onChange={handleChange}
               className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-indigo-500 focus:outline-none"
             >
-              {CATEGORIES.map((cat) => (
-                <option key={cat}>{cat}</option>
+              {CATEGORIES.map((category) => (
+                <option key={category.id} value={category.label}>
+                  {category.label}
+                </option>
               ))}
             </select>
           </div>
@@ -122,7 +110,7 @@ export default function AddTransaction() {
             Save
           </button>
         </form>
-      </main>
-    </div>
+      </Card>
+    </PageShell>
   );
 }

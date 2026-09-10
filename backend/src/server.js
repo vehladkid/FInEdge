@@ -1,15 +1,7 @@
-import express from "express";
-import cors from "cors";
+import app from "./app.js";
+import { config } from "./config/index.js";
 
-const app = express();
-const PORT = process.env.PORT || 5000;
-
-app.use(cors());
-
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to FinEdge API 🚀" });
-});
-
-app.listen(PORT, () => {
-  console.log(`FinEdge API listening on port ${PORT}`);
+// Process entry point — referenced by package.json "start" and the Dockerfile CMD.
+app.listen(config.port, () => {
+  console.log(`FinEdge API listening on port ${config.port}`);
 });

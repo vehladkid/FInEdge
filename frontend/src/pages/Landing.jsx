@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
-const MOCK_TRANSACTIONS = [
-  { label: "Grocery Store", category: "Food", amount: -42.1 },
-  { label: "Freelance Payment", category: "Income", amount: 620.0 },
-  { label: "Electric Bill", category: "Utilities", amount: -78.5 },
-];
-
-const MOCK_BARS = [30, 55, 40, 70, 50, 85, 60];
+import { getApiHealth } from "../services/api";
+import {
+  getPreviewBalance,
+  getPreviewBars,
+  getRecentTransactions,
+} from "../services/finance";
+import { formatCurrency } from "../utils/format";
 
 export default function Landing() {
   const [status, setStatus] = useState("loading");
   const [apiMessage, setApiMessage] = useState("connecting");
 
+  const transactions = getRecentTransactions();
+  const bars = getPreviewBars();
+
   useEffect(() => {
-    fetch(`${API_URL}/`)
-      .then((res) => res.json())
+    getApiHealth()
       .then(() => {
         setApiMessage("connected");
         setStatus("online");
@@ -100,10 +99,12 @@ export default function Landing() {
           {/* Right: mock UI panel */}
           <div className="rounded-lg border border-slate-800 bg-slate-900 p-5">
             <p className="text-xs text-slate-500">Total Balance</p>
-            <p className="mt-1 text-2xl font-semibold text-white">$4,250.00</p>
+            <p className="mt-1 text-2xl font-semibold text-white">
+              {formatCurrency(getPreviewBalance(), 2)}
+            </p>
 
             <div className="mt-5 flex h-16 items-end gap-1.5">
-              {MOCK_BARS.map((h, i) => (
+              {bars.map((h, i) => (
                 <div
                   key={i}
                   className="flex-1 rounded-sm bg-indigo-500/40"
@@ -113,7 +114,7 @@ export default function Landing() {
             </div>
 
             <div className="mt-5 space-y-2.5 border-t border-slate-800 pt-4">
-              {MOCK_TRANSACTIONS.map((t) => (
+              {transactions.map((t) => (
                 <div key={t.label} className="flex items-center justify-between text-sm">
                   <div>
                     <p className="text-slate-200">{t.label}</p>
@@ -122,7 +123,8 @@ export default function Landing() {
                   <span
                     className={t.amount < 0 ? "text-slate-400" : "text-emerald-400"}
                   >
-                    {t.amount < 0 ? "-" : "+"}${Math.abs(t.amount).toFixed(2)}
+                    {t.amount < 0 ? "-" : "+"}
+                    {formatCurrency(Math.abs(t.amount), 2)}
                   </span>
                 </div>
               ))}
