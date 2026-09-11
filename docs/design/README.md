@@ -2,8 +2,10 @@
 
 > **Scope note.** FinEdge is currently a working prototype: the UI is complete and
 > navigable, but the data it displays is mock data and the backend exposes a single
-> health endpoint. This document describes the architecture **as it actually exists
-> in the repository**. Where something is planned rather than built, it says so.
+> health endpoint. Budget creation is the one interactive feature — it adds to
+> component state and is not persisted. This document describes the architecture
+> **as it actually exists in the repository**. Where something is planned rather
+> than built, it says so.
 
 ## Architecture style
 

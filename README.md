@@ -4,8 +4,10 @@ An AI-powered personal finance and expense tracking web app.
 
 > **Status:** Milestone skeleton (DA1 / Review 1). This repo currently proves
 > the dev environment (frontend, backend, database) runs end-to-end in
-> Docker. Auth, transactions, budgets, analytics, and AI insights are
-> future work and are intentionally not implemented yet.
+> Docker. Auth, transactions, analytics, and AI insights are future work and
+> are intentionally not implemented yet. Budget creation works in the browser
+> but is held in component state only — there is no persistence yet, so a
+> refresh returns to the seeded values.
 
 ## Vision Document
 
