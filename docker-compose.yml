@@ -10,6 +10,11 @@ services:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finedge -d finedge"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
 
   backend:
     build: ./backend
@@ -19,6 +24,10 @@ services:
     environment:
       PORT: 5000
       DATABASE_URL: postgresql://finedge:finedge@postgres:5432/finedge
+      # Local-development value only. Set a real secret for any shared deployment.
+      JWT_SECRET: ${JWT_SECRET:-dev-only-secret-change-me}
+      CORS_ORIGIN: http://localhost:5173
+      AI_API_KEY: ${AI_API_KEY:-}
     depends_on:
       - postgres
 

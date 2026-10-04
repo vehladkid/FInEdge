@@ -17,3 +17,11 @@ build/
 
 # Docker
 *.pid
+
+# Test / tooling output
+coverage/
+reports/
+.stryker-tmp/
+playwright-report/
+test-results/
+docs/review3/tools/node_modules/
