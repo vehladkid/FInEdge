@@ -42,6 +42,6 @@ Audit date: 2026-10-04. Status values: **PASS** (verified, evidence cited), **PA
 2. The AI provider path is untested against the real API (row 6).
 3. The frontend Docker image serves the Vite dev server (suitable for demo/development, not production).
 4. `vite build` warns about a 629 kB bundle; `npm audit` lists advisories in transitive dev-tooling dependencies (not upgraded with `--force`).
-5. This machine still holds an older Docker volume `finedge_postgres_data` containing a legacy, empty schema from an earlier prototype; it was left untouched (the project now uses `finedge_pg16_data`). A backup dump was taken before any change was considered, and the volume can be removed by its owner.
+5. This machine still holds an older Docker volume `finedge_postgres_data` containing a legacy, empty schema from an earlier prototype; it was left untouched and unmodified (the project now uses `finedge_pg16_data`). The four legacy tables it holds were verified empty (0 rows). The owner can remove the volume or keep it.
 6. A demo account (`live@example.com`) was registered in the local development database while smoke-testing the running stack.
 7. Performance (NFR-04) is by design (aggregation, pagination, indexes) and was not load-tested.
