@@ -1,0 +1,24 @@
+flowchart TD
+  A([Start]) --> B{Signed in?}
+  B -- no --> L[Login or register] --> B
+  B -- yes --> C[Open Add Transaction]
+  C --> D[Choose type: income / expense]
+  D --> E[Pick category of that type]
+  E --> F[Enter amount, date, description]
+  F --> G{Client checks pass?}
+  G -- no --> F
+  G -- yes --> H[POST /api/transactions]
+  H --> I{Server validation<br/>& category check}
+  I -- fails --> J[Show error message] --> F
+  I -- ok --> K[(Insert row)]
+  K --> M{Expense in a budgeted<br/>category and period?}
+  M -- no --> P[Dashboard totals update]
+  M -- yes --> N[Budget spent increases]
+  N --> O{spent > amount?}
+  O -- yes --> Q[Status: exceeded<br/>insight: critical]
+  O -- "no, >= 80%" --> R[Status: warning<br/>insight: warning]
+  O -- no --> S[Status: ok]
+  Q --> P
+  R --> P
+  S --> P
+  P --> T([End])

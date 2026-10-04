@@ -1,3 +1,8 @@
+> **Superseded (Review 3).** This document describes the Review 2 prototype, whose
+> data was mocked and whose backend had one health endpoint. The application now has
+> a PostgreSQL-backed API, authentication and persistent data. The current design,
+> diagrams and requirements are in [`docs/review3/`](../review3/).
+
 # FinEdge — Software Design
 
 > **Scope note.** FinEdge is currently a working prototype: the UI is complete and

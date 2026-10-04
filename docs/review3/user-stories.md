@@ -1,0 +1,19 @@
+# User Stories
+
+Each story is mapped to the feature that implements it and to the automated tests that protect it. Test paths are relative to `backend/` (`B:`) or `frontend/` (`F:`).
+
+| ID | User story | Implementation | Tests |
+|---|---|---|---|
+| US-01 | As a user, I want to **register an account**, so that I can securely manage my financial data. | `POST /api/auth/register`, `pages/Register.jsx`, bcrypt hashing, 9 default categories | B: `integration/auth.test.js` (register, duplicate, validation, race); F: `unit/auth.test.jsx`; E2E `auth.spec.js` |
+| US-02 | As a user, I want to **log in**, so that my financial information is protected. | `POST /api/auth/login`, JWT, `AuthContext` | B: `auth.test.js` (valid, wrong password, unknown e-mail); F: `auth.test.jsx`; E2E `auth.spec.js` |
+| US-03 | As a user, I want protected pages to require login and **log out** when I finish, so that nobody else can open my data on a shared device. | `requireAuth`, `ProtectedRoute`, logout, expired-token handling | B: guard tests (no/invalid/expired/forged token); E2E: every protected route redirects, expired session |
+| US-04 | As a user, I want to **record an expense or income**, so that I can track where my money goes. | `POST /api/transactions`, `TransactionForm`, `AddTransaction` | B: `transactions.test.js`; F: `transactionForm.test.jsx`; E2E `transactions.spec.js` |
+| US-05 | As a user, I want to **edit, delete and filter** my transactions, so that I can correct mistakes and find entries. | `PUT/DELETE /api/transactions/:id`, filters + pagination, `Transactions` page | B: CRUD, filter, pagination tests; E2E: edit/delete, filter, paginate |
+| US-06 | As a user, I want to **categorise transactions** and manage my own categories, so that I can understand my spending patterns. | `/api/categories`, `Categories` page, delete protection | B: `categories.test.js`; E2E `categories-analytics.spec.js` |
+| US-07 | As a user, I want to **create a budget** for a category and period, so that I can control my spending. | `/api/budgets` (weekly/monthly/yearly), `Budget` page | B: `budgets.test.js`; F: `dashboard.test.jsx`; E2E `budgets.spec.js`; unit: `budgetCalc`, `dates` |
+| US-08 | As a user, I want my budget to show **spent, remaining, percentage and whether it is exceeded**, calculated from my real transactions. | SQL `spent` subquery + `budgetStatus()` | B: calculations (boundaries, other categories, other users); unit + mutation tests on `budgetCalc` |
+| US-09 | As a user, I want a **dashboard** with my balance, month totals, recent transactions and budget status, so that I see my position at a glance. | `GET /api/dashboard`, `Dashboard` page | B: `reports.test.js`; F: `dashboard.test.jsx`; E2E: empty state, totals |
+| US-10 | As a user, I want **analytics** (income vs expenses, category breakdown, trends), so that I can understand my financial trends. | `GET /api/analytics`, Recharts | B: aggregation correctness; E2E: charts render, range control |
+| US-11 | As a user, I want **financial insights**, so that I can spot unusual spending or budget risks — with or without an AI service. | `GET /api/insights`, `insightRules`, `aiClient` | unit + mutation on `insightRules`/`aiClient`; B: rule-based fallback, AI path with injected provider, failure fallback; E2E: insights shown |
+| US-12 | As a mobile user, I want the app to be **usable on my phone**, so that I can add expenses wherever I am. | Responsive layout, collapsible navigation | E2E at 390×844: no horizontal overflow, navigation, forms, charts |
+| US-13 | As a user, I want clear **error, loading and empty states**, so that I always know what is happening and am never shown made-up numbers. | `Loading`, `ErrorMessage`, `Empty`, centralised API errors | F: dashboard/auth tests; E2E: API-unreachable state, empty states |

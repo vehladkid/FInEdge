@@ -1,0 +1,46 @@
+$ (cd frontend && npm run test:coverage)
+
+> finedge-frontend@0.1.0 test:coverage
+> vitest run --coverage
+
+
+ RUN  v3.2.7 /home/tejvir-singh/Desktop/FInEdge/frontend
+      Coverage enabled with v8
+
+ ✓ tests/unit/api.test.js (10 tests) 12ms
+ ✓ tests/unit/format.test.js (7 tests) 27ms
+ ✓ tests/unit/dashboard.test.jsx (5 tests) 286ms
+ ✓ tests/unit/transactionForm.test.jsx (7 tests) 517ms
+ ✓ tests/unit/auth.test.jsx (10 tests) 898ms
+
+ Test Files  5 passed (5)
+      Tests  39 passed (39)
+   Start at  12:01:24
+   Duration  2.22s (transform 236ms, setup 511ms, collect 463ms, tests 1.74s, environment 2.77s, prepare 577ms)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   95.78 |     87.5 |   49.01 |   95.78 |                   
+ components        |   97.85 |    78.57 |   72.72 |   97.85 |                   
+  InsightsCard.jsx |     100 |       80 |     100 |     100 | 15,20             
+  NavBar.jsx       |    92.5 |    22.22 |      25 |    92.5 | 21-23             
+  ...ctedRoute.jsx |     100 |      100 |     100 |     100 |                   
+  ...ctionForm.jsx |     100 |    90.62 |     100 |     100 | 19,30-31          
+ components/ui     |     100 |       80 |     100 |     100 |                   
+  Card.jsx         |     100 |      100 |     100 |     100 |                   
+  States.jsx       |     100 |       75 |     100 |     100 | 9                 
+ contexts          |   88.67 |    94.11 |   66.66 |   88.67 |                   
+  AuthContext.jsx  |   88.67 |    94.11 |   66.66 |   88.67 | 36-38,52-54       
+ hooks             |     100 |      100 |     100 |     100 |                   
+  useAsync.js      |     100 |      100 |     100 |     100 |                   
+ services          |   94.26 |    94.59 |   18.51 |   94.26 |                   
+  api.js           |   94.33 |      100 |   66.66 |   94.33 | 59-61             
+  finance.js       |     100 |      100 |       0 |     100 |                   
+  session.js       |    87.5 |       75 |     100 |    87.5 | 12-13,33-34       
+ utils             |     100 |      100 |     100 |     100 |                   
+  dates.js         |     100 |      100 |     100 |     100 |                   
+  format.js        |     100 |      100 |     100 |     100 |                   
+-------------------|---------|----------|---------|---------|-------------------
+[exit code: 0]

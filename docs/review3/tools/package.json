@@ -1,0 +1,16 @@
+{
+  "name": "finedge-review3-tools",
+  "private": true,
+  "type": "module",
+  "description": "Renders diagrams, evidence screenshots and the two DA3 PDFs from the repository sources.",
+  "scripts": {
+    "diagrams": "node render-diagrams.mjs",
+    "evidence": "node render-evidence.mjs",
+    "pdf": "node build-pdfs.mjs"
+  },
+  "dependencies": {
+    "marked": "^14.1.0",
+    "mermaid": "^11.4.0",
+    "playwright": "^1.50.0"
+  }
+}

@@ -1,0 +1,56 @@
+[
+  {"section": "1. Integration testing", "figures": [
+    {"img": "screenshots/evidence/integration-backend.png", "title": "Backend integration tests", "caption": "npm run test:integration — 75 Supertest tests against the real Express app and a PostgreSQL *_test database.", "context": "Covers auth, transactions, categories, budgets, dashboard, analytics and insights, including cross-user isolation and concurrent registration."},
+    {"img": "screenshots/evidence/coverage-backend.png", "title": "Backend integration coverage", "caption": "V8 coverage of backend/src while the integration suite runs.", "context": "All routes, controllers, repositories and middleware are exercised; gaps are the AI network call and the production error branch (both unit-tested)."},
+    {"img": "screenshots/evidence/unit-backend.png", "title": "Backend unit tests", "caption": "npm run test:unit — 135 tests of the pure business-logic modules.", "context": "Validators, dates, password policy, budget/analytics calculations, insight rules, AI client and error handler."},
+    {"img": "screenshots/evidence/unit-frontend.png", "title": "Frontend unit/component tests", "caption": "npm run test:unit in frontend — 39 Vitest + React Testing Library tests.", "context": "Currency formatting, API client, session storage, login/register flow, protected routes, transaction form, dashboard and budget pages."},
+    {"img": "screenshots/evidence/coverage-frontend.png", "title": "Frontend coverage", "caption": "npm run test:coverage in frontend.", "context": "Pages and charts are covered by the Playwright suite; see TESTING.md for what unit coverage intentionally excludes."}
+  ]},
+  {"section": "2. Regression testing", "figures": [
+    {"img": "screenshots/evidence/regression-e2e.png", "title": "Playwright regression suite", "caption": "npm run test:regression — 120 passed (40 tests × desktop 1440×900, laptop 1280×800, mobile 390×844).", "context": "Real browser against the real React app, API and PostgreSQL; journeys: auth, transactions, budgets, categories, analytics, layout/overflow, console health."},
+    {"img": "screenshots/app/mobile-14-mobile-menu.png", "width": "38%", "title": "Mobile navigation (390×844)", "caption": "The collapsible menu exercised by layout.spec.js on the mobile project.", "context": "Part of the responsive regression checks: no horizontal overflow, navigation reachable, buttons clickable."}
+  ]},
+  {"section": "3. Mutation testing", "figures": [
+    {"img": "screenshots/evidence/mutation-backend.png", "title": "StrykerJS mutation report", "caption": "npm run test:mutation — mutation score 96.53 % (527 killed, 1 timeout, 19 survived of 547).", "context": "Targets 10 logic modules; survivors are analysed in TESTING.md and evidence/mutation-summary.md. The build fails below 80 %."}
+  ]},
+  {"section": "4. Version management", "figures": [
+    {"img": "screenshots/evidence/git-log-graph.png", "title": "Git history graph", "caption": "git log --graph --all at the v1.0.0 release.", "context": "GitHub Flow: feature/* and ci/* branches merged into main with --no-ff; Conventional Commit messages."},
+    {"img": "screenshots/evidence/git-branches.png", "title": "Branches", "caption": "git branch -a -vv", "context": "Short-lived feature branches kept for traceability."},
+    {"img": "screenshots/evidence/git-tags.png", "title": "Release tag", "caption": "git tag -n — v1.0.0.", "context": "Annotated tag marking the Review 3 release."},
+    {"img": "screenshots/evidence/git-commits-remote.png", "title": "Commits and remote", "caption": "Non-merge commits and the configured GitHub remote.", "context": "Remote: https://github.com/vehladkid/FInEdge.git"},
+    {"img": "screenshots/evidence/git-shortlog.png", "title": "Contributors", "caption": "git shortlog -sn --all", "context": "Commit counts per author."}
+  ]},
+  {"section": "5. System building", "figures": [
+    {"img": "screenshots/evidence/build-frontend.png", "title": "Production build", "caption": "npm run build (Vite) — success.", "context": "Warning about the 629 kB chunk is documented in TESTING.md."},
+    {"img": "screenshots/evidence/lint-backend.png", "title": "Backend lint", "caption": "npm run lint — ESLint, no findings.", "context": ""},
+    {"img": "screenshots/evidence/lint-frontend.png", "title": "Frontend lint", "caption": "npm run lint — ESLint with react and react-hooks rules, no findings.", "context": ""},
+    {"img": "screenshots/evidence/docker-backend.png", "title": "Docker build — backend", "caption": "docker build ./backend — success.", "context": "Image runs migrations then starts the API."},
+    {"img": "screenshots/evidence/docker-frontend.png", "title": "Docker build — frontend", "caption": "docker build ./frontend — success.", "context": ""},
+    {"img": "screenshots/evidence/docker-compose-ps.png", "title": "Running stack", "caption": "docker-compose ps — postgres (healthy), backend and frontend up.", "context": "Started from an empty database; migration 001_init.sql applied automatically."},
+    {"img": "screenshots/evidence/ci-workflow.png", "title": "CI pipeline definition", "caption": ".github/workflows/ci.yml — jobs backend, frontend, e2e, docker.", "context": "A GitHub Actions run screenshot requires pushing the repository; see the status note in FINAL_AUDIT.md."}
+  ]},
+  {"section": "6. Developed functionality — desktop (1440×900)", "figures": [
+    {"img": "screenshots/app/desktop-01-landing.png", "title": "Landing page", "caption": "Landing page; status indicator shows the backend is connected.", "context": "The preview panel is a labelled sample, not user data."},
+    {"img": "screenshots/app/desktop-02-register.png", "title": "Registration", "caption": "Create-account form.", "context": "FR-01."},
+    {"img": "screenshots/app/desktop-03-login-error.png", "title": "Login — invalid credentials", "caption": "Server error message shown for a wrong password.", "context": "FR-04; identical message for unknown e-mail."},
+    {"img": "screenshots/app/desktop-04-dashboard.png", "title": "Dashboard", "caption": "Balance, month totals, spending by category, insights, recent transactions and budget status — all from the database.", "context": "FR-17, FR-19."},
+    {"img": "screenshots/app/desktop-05-transactions.png", "title": "Transactions", "caption": "Filterable, paginated transaction list with edit and delete.", "context": "FR-10, FR-11."},
+    {"img": "screenshots/app/desktop-06-add-transaction-validation.png", "title": "Add transaction — validation", "caption": "Client-side validation message.", "context": "FR-08."},
+    {"img": "screenshots/app/desktop-07-add-transaction-saved.png", "title": "Add transaction — saved", "caption": "Success state after saving to PostgreSQL.", "context": "FR-08, FR-09."},
+    {"img": "screenshots/app/desktop-08-edit-transaction.png", "title": "Edit transaction", "caption": "Edit dialog pre-filled with the transaction.", "context": "FR-11."},
+    {"img": "screenshots/app/desktop-09-budgets.png", "title": "Budgets", "caption": "Spent, remaining, percentage and status calculated by the backend; two budgets exceeded or near limit.", "context": "FR-15, FR-16."},
+    {"img": "screenshots/app/desktop-10-new-budget-dialog.png", "title": "New budget", "caption": "Create-budget dialog (category, limit, period, start date).", "context": "FR-15."},
+    {"img": "screenshots/app/desktop-11-categories.png", "title": "Categories", "caption": "Default and custom categories by type.", "context": "FR-13, FR-14."},
+    {"img": "screenshots/app/desktop-12-analytics.png", "title": "Analytics", "caption": "Category breakdown, income vs expenses, daily spending, savings rate.", "context": "FR-18."},
+    {"img": "screenshots/app/desktop-13-insights.png", "title": "Insights", "caption": "Rule-based insights for the seeded month.", "context": "FR-19, FR-20."}
+  ]},
+  {"section": "6b. Developed functionality — mobile (390×844)", "figures": [
+    {"img": "screenshots/app/mobile-04-dashboard.png", "width": "38%", "title": "Mobile dashboard", "caption": "Dashboard on a phone.", "context": "FR-23."},
+    {"img": "screenshots/app/mobile-07-add-transaction-saved.png", "width": "38%", "title": "Mobile transaction flow", "caption": "Add-transaction form after a successful save.", "context": "FR-23."},
+    {"img": "screenshots/app/mobile-09-budgets.png", "width": "38%", "title": "Mobile budgets", "caption": "Budget cards with computed status.", "context": "FR-23."},
+    {"img": "screenshots/app/mobile-12-analytics.png", "width": "38%", "title": "Mobile analytics", "caption": "Charts stacked for a narrow screen.", "context": "FR-23."}
+  ]},
+  {"section": "7. Tools and technologies", "figures": [
+    {"img": "screenshots/evidence/dependencies.png", "title": "Declared dependencies", "caption": "Dependencies and dev tools from backend/package.json and frontend/package.json.", "context": "Narrative table: tools-and-technologies.md."}
+  ]}
+]

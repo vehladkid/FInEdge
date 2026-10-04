@@ -1,0 +1,91 @@
+classDiagram
+  class User {
+    +int id
+    +string name
+    +string email
+    +string passwordHash
+    +Date createdAt
+  }
+  class Category {
+    +int id
+    +int userId
+    +string name
+    +income|expense type
+  }
+  class Transaction {
+    +int id
+    +int userId
+    +int categoryId
+    +number amount
+    +income|expense type
+    +string description
+    +string date
+  }
+  class Budget {
+    +int id
+    +int userId
+    +int categoryId
+    +number amount
+    +weekly|monthly|yearly period
+    +string startDate
+    +string endDate
+  }
+  class AuthService {
+    +register(data) User+token
+    +login(data) User+token
+    +currentUser(id) User
+    +signToken(id) string
+    +verifyToken(token) int
+  }
+  class CategoryService {
+    +list(userId,type)
+    +create(userId,data)
+    +rename(userId,id,name)
+    +remove(userId,id)
+  }
+  class TransactionService {
+    +list(userId,query)
+    +get(userId,id)
+    +create(userId,data)
+    +update(userId,id,data)
+    +remove(userId,id)
+  }
+  class BudgetService {
+    +list(userId)
+    +create(userId,data)
+    +update(userId,id,data)
+    +remove(userId,id)
+  }
+  class AnalyticsService {
+    +dashboard(userId,today)
+    +analytics(userId,today,months)
+  }
+  class InsightService {
+    +getInsights(userId,today,ai)
+  }
+  class BudgetCalc {
+    +budgetStatus(amount,spent)
+  }
+  class AnalyticsCalc {
+    +summarize(rows)
+    +monthlySeries(rows,today,n)
+    +withShares(rows)
+  }
+  class InsightRules {
+    +generateInsights(input)
+  }
+  User "1" --> "*" Category
+  User "1" --> "*" Transaction
+  User "1" --> "*" Budget
+  Category "1" --> "*" Transaction
+  Category "1" --> "*" Budget
+  AuthService ..> User
+  CategoryService ..> Category
+  TransactionService ..> Transaction
+  TransactionService ..> Category
+  BudgetService ..> Budget
+  BudgetService ..> BudgetCalc
+  AnalyticsService ..> AnalyticsCalc
+  AnalyticsService ..> BudgetService
+  InsightService ..> InsightRules
+  InsightService ..> AnalyticsCalc

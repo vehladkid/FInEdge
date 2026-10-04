@@ -1,0 +1,125 @@
+[
+ {
+  "out": "lint-backend.png",
+  "log": "02-backend-lint.txt",
+  "title": "Backend \u2014 npm run lint",
+  "tail": 12
+ },
+ {
+  "out": "unit-backend.png",
+  "log": "03-backend-unit.txt",
+  "title": "Backend \u2014 npm run test:unit",
+  "tail": 22
+ },
+ {
+  "out": "integration-backend.png",
+  "log": "04-backend-integration.txt",
+  "title": "Backend \u2014 npm run test:integration (Supertest + PostgreSQL)",
+  "tail": 22
+ },
+ {
+  "out": "coverage-backend.png",
+  "log": "05-backend-coverage.txt",
+  "title": "Backend \u2014 integration coverage (V8)",
+  "from": "Coverage report",
+  "count": 60
+ },
+ {
+  "out": "mutation-backend.png",
+  "log": "06-backend-mutation.txt",
+  "title": "Backend \u2014 npm run test:mutation (StrykerJS)",
+  "from": "All files",
+  "count": 28
+ },
+ {
+  "out": "lint-frontend.png",
+  "log": "08-frontend-lint.txt",
+  "title": "Frontend \u2014 npm run lint",
+  "tail": 12
+ },
+ {
+  "out": "unit-frontend.png",
+  "log": "09-frontend-unit.txt",
+  "title": "Frontend \u2014 npm run test:unit",
+  "tail": 24
+ },
+ {
+  "out": "coverage-frontend.png",
+  "log": "10-frontend-coverage.txt",
+  "title": "Frontend \u2014 npm run test:coverage",
+  "from": "Coverage report",
+  "count": 40
+ },
+ {
+  "out": "build-frontend.png",
+  "log": "11-frontend-build.txt",
+  "title": "Frontend \u2014 npm run build",
+  "tail": 18
+ },
+ {
+  "out": "regression-e2e.png",
+  "log": "12-regression-e2e.txt",
+  "title": "Playwright regression suite \u2014 3 viewports (npm run test:regression)",
+  "tail": 40
+ },
+ {
+  "out": "docker-backend.png",
+  "log": "13-docker-build-backend.txt",
+  "title": "docker build ./backend",
+  "tail": 14
+ },
+ {
+  "out": "docker-frontend.png",
+  "log": "14-docker-build-frontend.txt",
+  "title": "docker build ./frontend",
+  "tail": 14
+ },
+ {
+  "out": "git-log-graph.png",
+  "log": "20-git-log-graph.txt",
+  "title": "git log --graph --all",
+  "head": 60
+ },
+ {
+  "out": "git-branches.png",
+  "log": "21-git-branches.txt",
+  "title": "git branch -a -vv",
+  "head": 30
+ },
+ {
+  "out": "git-tags.png",
+  "log": "22-git-tags.txt",
+  "title": "git tag -n",
+  "head": 10
+ },
+ {
+  "out": "git-commits-remote.png",
+  "log": "24-git-commits-remote.txt",
+  "title": "git log --no-merges / git remote -v",
+  "head": 50
+ },
+ {
+  "out": "git-shortlog.png",
+  "log": "23-git-shortlog.txt",
+  "title": "git shortlog -sn --all",
+  "head": 10
+ },
+ {
+  "out": "ci-workflow.png",
+  "log": "25-ci-workflow.txt",
+  "title": ".github/workflows/ci.yml",
+  "head": 70
+ },
+ {
+  "out": "docker-compose-ps.png",
+  "log": "26-docker-compose-ps.txt",
+  "title": "docker-compose ps",
+  "head": 12
+ },
+ {
+  "out": "dependencies.png",
+  "log": "27-dependencies.txt",
+  "title": "Declared dependencies",
+  "head": 60
+ }
+]

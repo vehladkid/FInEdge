@@ -1,0 +1,34 @@
+sequenceDiagram
+  actor U as User
+  participant F as TransactionForm
+  participant API as services/api.js
+  participant R as Express (requireAuth, validate)
+  participant S as transactionService
+  participant C as categories repo
+  participant T as transactions repo
+  participant DB as PostgreSQL
+  U->>F: fill type, amount, category, date, description
+  F->>F: client checks (amount > 0, category, date)
+  F->>API: POST /api/transactions + Bearer JWT
+  API->>R: request
+  R->>R: verify JWT -> userId
+  R->>R: zod transactionSchema
+  alt invalid
+    R-->>F: 400 VALIDATION_ERROR (message)
+  else valid
+    R->>S: create(userId, data)
+    S->>C: findById(userId, categoryId)
+    C->>DB: SELECT ... WHERE id AND user_id
+    alt category missing / other user's / wrong type
+      S-->>F: 400 "Category does not exist" / type mismatch
+    else ok
+      S->>T: create(userId, data)
+      T->>DB: INSERT transactions RETURNING id
+      T->>DB: SELECT with category name
+      T-->>S: transaction
+      S-->>R: transaction
+      R-->>F: 201 {success, data}
+      F-->>U: "Transaction saved."
+      Note over U,DB: Dashboard, budgets and analytics recompute from the<br/>new row on their next request (no cached totals)
+    end
+  end

@@ -1,0 +1,11 @@
+flowchart LR
+  U(["User<br/>(browser)"])
+  DB[("PostgreSQL<br/>database")]
+  AI(["AI provider<br/>(optional, Anthropic API)"])
+  S(("0<br/>FinEdge<br/>System"))
+  U -- "registration / login credentials<br/>transactions, categories, budgets<br/>report & insight requests" --> S
+  S -- "JWT session, records,<br/>dashboard, analytics,<br/>insights, error messages" --> U
+  S -- "SQL reads and writes<br/>(users, categories,<br/>transactions, budgets)" --> DB
+  DB -- "rows / aggregates" --> S
+  S -. "aggregated monthly figures<br/>(only when AI_API_KEY is set)" .-> AI
+  AI -. "generated insight sentences" .-> S
