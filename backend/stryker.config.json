@@ -1,0 +1,37 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "testRunner": "vitest",
+  "vitest": {
+    "configFile": "vitest.unit.config.js"
+  },
+  "mutate": [
+    "src/utils/dates.js",
+    "src/utils/password.js",
+    "src/utils/money.js",
+    "src/validators/index.js",
+    "src/services/budgetCalc.js",
+    "src/services/analyticsCalc.js",
+    "src/services/insightRules.js",
+    "src/services/aiClient.js",
+    "src/middleware/errorHandler.js",
+    "src/errors/index.js"
+  ],
+  "reporters": [
+    "clear-text",
+    "progress",
+    "html",
+    "json"
+  ],
+  "htmlReporter": {
+    "fileName": "reports/mutation/mutation.html"
+  },
+  "jsonReporter": {
+    "fileName": "reports/mutation/mutation.json"
+  },
+  "coverageAnalysis": "perTest",
+  "thresholds": {
+    "high": 90,
+    "low": 80,
+    "break": 80
+  }
+}
