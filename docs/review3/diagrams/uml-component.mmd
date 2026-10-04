@@ -1,0 +1,28 @@
+flowchart TB
+  subgraph Browser["Browser — React 18 + Vite + Tailwind + Recharts"]
+    Pages["Pages<br/>Landing, Login, Register, Dashboard,<br/>Transactions, AddTransaction,<br/>Categories, Budget, Analytics"]
+    Auth["AuthContext + ProtectedRoute"]
+    Hooks["useAsync hook"]
+    Svc["services/finance.js<br/>services/api.js<br/>services/session.js"]
+    Pages --> Auth
+    Pages --> Hooks --> Svc
+    Auth --> Svc
+  end
+  subgraph Server["Express 4 API (Node 22)"]
+    Routes["routes/api.js"]
+    MW["middleware<br/>auth (JWT), validate (zod),<br/>errorHandler"]
+    Ctl["controllers"]
+    Sv["services<br/>auth, category, transaction, budget,<br/>analytics, insight"]
+    Calc["pure logic<br/>budgetCalc, analyticsCalc,<br/>insightRules, dates, password"]
+    Repo["repositories (SQL)"]
+    AIc["aiClient (optional)"]
+    Routes --> MW --> Ctl --> Sv
+    Sv --> Calc
+    Sv --> Repo
+    Sv --> AIc
+  end
+  PG[("PostgreSQL 16<br/>migrations/001_init.sql")]
+  Ext(["Anthropic Messages API"])
+  Svc -- "HTTPS JSON + Bearer JWT" --> Routes
+  Repo -- "pg (node-postgres)" --> PG
+  AIc -.-> Ext

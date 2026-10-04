@@ -1,0 +1,381 @@
+$ (cd backend && npm run test:mutation)
+
+> finedge-backend@0.1.0 test:mutation
+> stryker run
+
+[32m12:00:56 (158331) INFO ProjectReader[39m Found 10 of 141 file(s) to be mutated.
+[32m12:00:56 (158331) INFO Instrumenter[39m Instrumented 10 source file(s) with 547 mutant(s)
+[32m12:00:56 (158331) INFO ConcurrencyTokenProvider[39m Creating 15 test runner process(es).
+[32m12:00:57 (158331) INFO BroadcastReporter[39m Detected that current console does not support the "progress" reporter, downgrading to "progress-append-only" reporter
+[32m12:00:57 (158331) INFO DryRunExecutor[39m Starting initial test run (vitest test runner with "perTest" coverage analysis). This may take a while.
+[32m12:00:59 (158331) INFO DryRunExecutor[39m Initial test run succeeded. Ran 135 tests in 1 second (net 86.97676899999908 ms, overhead 1524.023231000001 ms).
+[33m12:00:59 (158331) WARN MutantTestPlanner[39m Detected 92 static mutants (17% of total) that are estimated to take 78% of the time running the tests!
+  You might want to enable "ignoreStatic" to ignore these static mutants for your next run. 
+  For more information about static mutants visit: https://stryker-mutator.io/docs/mutation-testing-elements/static-mutants
+  (disable "warnings.slow" to ignore this warning)
+Mutation testing 15% (elapsed: <1m, remaining: <1m) 295/547 tested (8 survived, 1 timed out)
+
+All tests
+  aiClient.test.js
+    ✓ aiInsights does nothing without an API key (never calls the network) (killed 3)
+    ✓ aiInsights calls the provider with the key, model and aggregated data only (killed 17)
+    ✓ aiInsights parses the model's JSON array, tolerating surrounding prose (killed 13)
+    ✓ aiInsights defaults an unknown severity to info and drops malformed items (killed 6)
+    ✓ aiInsights keeps every valid severity and drops non-string messages (killed 2)
+    ✓ aiInsights returns at most four insights (killed 1)
+    ✓ aiInsights throws when the provider responds with an error status (killed 2)
+    ~ aiInsights throws when the answer is not JSON, so the caller can fall back (covered 27)
+  analyticsCalc.test.js
+    ✓ summarize empty list is all zeros with no savings rate (killed 5)
+    ✓ summarize income and expenses (killed 17)
+    ~ summarize zero income yields negative balance and null rate (covered 20)
+    ~ summarize zero expenses is a 100% savings rate (covered 20)
+    ~ summarize expenses above income give a negative rate (covered 25)
+    ✓ summarize sums several rows of the same type and ignores unknown types (killed 1)
+    ✓ monthKeys returns the last N months oldest first (killed 17)
+    ~ monthKeys crosses the year boundary (covered 17)
+    ~ monthKeys a single month is the current one (covered 17)
+    ✓ monthlySeries zero-fills months and ignores rows outside the window (killed 28)
+    ~ monthlySeries adds several rows of one month and type (covered 47)
+    ✓ withShares computes percentage of total with one decimal (killed 10)
+    ✓ withShares empty input and zero totals (killed 2)
+    ~ withShares keeps extra fields and rounds totals to cents (covered 15)
+  budgetCalc.test.js
+    ✓ budgetStatus nothing spent (killed 10)
+    ✓ budgetStatus under the warning threshold (killed 6)
+    ~ budgetStatus just below the warning threshold stays ok (covered 24)
+    ✓ budgetStatus exactly the warning threshold is a warning (killed 3)
+    ✓ budgetStatus exactly at budget is 100% but not exceeded (killed 1)
+    ✓ budgetStatus one cent over is exceeded with negative remaining (killed 3)
+    ~ budgetStatus well over budget (covered 21)
+    ~ budgetStatus percent has one decimal place (covered 24)
+    ~ budgetStatus rounds floating point noise (covered 24)
+    ✓ budgetStatus a zero allocation never divides by zero (killed 2)
+  dates.test.js
+    ✓ isValidIsoDate accepts 2026-01-01 (killed 1)
+    ~ isValidIsoDate accepts 2024-02-29 (covered 16)
+    ~ isValidIsoDate accepts 2026-12-31 (covered 16)
+    ~ isValidIsoDate accepts 0050-01-01 (covered 16)
+    ~ isValidIsoDate rejects "2026-02-30" (covered 16)
+    ~ isValidIsoDate rejects "2025-02-29" (covered 16)
+    ~ isValidIsoDate rejects "2026-13-01" (covered 13)
+    ~ isValidIsoDate rejects "2026-00-10" (covered 13)
+    ~ isValidIsoDate rejects "2026-01-00" (covered 13)
+    ✓ isValidIsoDate rejects "2026-1-1" (killed 1)
+    ~ isValidIsoDate rejects "26-01-01" (covered 9)
+    ~ isValidIsoDate rejects "2026-01-01T00:00:00Z" (covered 9)
+    ~ isValidIsoDate rejects " 2026-01-01" (covered 9)
+    ~ isValidIsoDate rejects "2026-01-011" (covered 9)
+    ~ isValidIsoDate rejects "" (covered 9)
+    ~ isValidIsoDate rejects "not a date" (covered 9)
+    ~ isValidIsoDate rejects non-strings, even ones that stringify to a date (covered 8)
+    ~ date arithmetic toIso formats UTC date (covered 1)
+    ✓ date arithmetic addDays crosses month and year boundaries (killed 3)
+    ✓ date arithmetic startOfMonth / endOfMonth (killed 3)
+    ~ date arithmetic shiftMonths returns the first of the shifted month (covered 8)
+    ✓ endOfPeriod weekly covers 7 days inclusive (killed 4)
+    ✓ endOfPeriod monthly ends the day before the same day next month (killed 11)
+    ✓ endOfPeriod monthly clamps when the next month is shorter (killed 1)
+    ✓ endOfPeriod yearly ends the day before the next anniversary (killed 12)
+    ✓ endOfPeriod rejects unknown periods (killed 2)
+  errorHandler.test.js
+    ✓ error factories carry status, code and message (killed 11)
+    ✓ errorHandler serialises an AppError with its details (killed 10)
+    ~ errorHandler omits details when there are none (covered 18)
+    ✓ errorHandler maps malformed JSON to 400 and oversized bodies to 413 (killed 14)
+    ✓ errorHandler returns 500 and shows the cause outside production (killed 6)
+    ✓ errorHandler never leaks the cause in production (killed 2)
+    ✓ errorHandler notFoundHandler forwards a 404 naming the route (killed 3)
+  insightRules.test.js
+    ✓ generateInsights asks for data when the month is empty (killed 16)
+    ✓ generateInsights says things are steady when there is data but nothing to flag (killed 18)
+    ✓ generateInsights budgets critical when exceeded, with the overspend amount (killed 15)
+    ✓ generateInsights budgets warning when near the limit (killed 9)
+    ✓ generateInsights budgets silent when ok (killed 1)
+    ✓ generateInsights category spikes flags a 20%+ increase (killed 18)
+    ✓ generateInsights category spikes ignores 19% increases (killed 3)
+    ✓ generateInsights category spikes flags exactly $20 over at 20% (killed 1)
+    ✓ generateInsights category spikes ignores $19.99 even when ≥ 20% (killed 1)
+    ✓ generateInsights category spikes ignores categories with no history (killed 2)
+    ~ generateInsights category spikes ignores decreases (covered 66)
+    ✓ generateInsights dominant category flags a category at 40% or more of spending (killed 14)
+    ~ generateInsights dominant category does not flag at 39% (covered 60)
+    ✓ generateInsights dominant category on a tie names the first of the tied categories (killed 1)
+    ✓ generateInsights dominant category picks the largest of several categories (killed 1)
+    ✓ generateInsights month over month flags +20% (killed 13)
+    ✓ generateInsights month over month is a warning (killed 1)
+    ✓ generateInsights month over month message states the percentage (killed 3)
+    ✓ generateInsights month over month ignores +19% (killed 1)
+    ~ generateInsights month over month ignores a decrease and a missing previous month (covered 46)
+    ✓ generateInsights savings overspending is critical and states the gap (killed 8)
+    ✓ generateInsights savings spending exactly the income is not overspending but is a low savings rate (killed 8)
+    ✓ generateInsights savings good savings at 20% and above (killed 7)
+    ✓ generateInsights savings low savings below 10% (killed 2)
+    ✓ generateInsights savings 10% is neither good nor low (killed 1)
+    ✓ generateInsights savings no income means no savings insight (killed 4)
+    ~ generateInsights orders budget alerts before category and savings insights (covered 110)
+  money.test.js
+    ~ round2 rounds to cents (covered 3)
+  password.test.js
+    ✘ passwordProblems has the documented limits (covered 0)
+    ✓ passwordProblems accepts a valid password (killed 1)
+    ✓ passwordProblems accepts exactly the minimum and maximum length (killed 1)
+    ~ passwordProblems rejects one character under the minimum (covered 23)
+    ✓ passwordProblems rejects one character over the maximum (killed 2)
+    ✓ passwordProblems requires a letter (killed 2)
+    ~ passwordProblems requires a digit (covered 23)
+    ~ passwordProblems accepts uppercase-only letters (covered 22)
+    ~ passwordProblems reports every problem at once (covered 25)
+    ✓ passwordProblems rejects non-strings (killed 3)
+  validators.test.js
+    ✓ parse returns parsed data (killed 8)
+    ✓ parse throws a 400 VALIDATION_ERROR with field details (killed 5)
+    ~ parse treats an undefined body as empty (covered 9)
+    ✓ registerSchema trims the name and lowercases the email (killed 20)
+    ✓ registerSchema trims whitespace around the email (killed 1)
+    ✓ registerSchema requires a name (killed 2)
+    ✓ registerSchema limits name to 100 characters (killed 1)
+    ✓ registerSchema rejects malformed and missing emails (killed 3)
+    ✓ registerSchema rejects an over-long email (killed 1)
+    ✓ registerSchema applies the password policy (killed 10)
+    ✓ loginSchema requires both fields (killed 3)
+    ✓ categorySchema accepts and trims (killed 5)
+    ✓ categorySchema rejects bad name and type (killed 6)
+    ✓ categorySchema update only needs a name (killed 2)
+    ✓ transactionSchema accepts a valid payload and coerces the category id (killed 25)
+    ✓ transactionSchema defaults the description to empty (killed 1)
+    ✓ transactionSchema limits the description to 200 characters (killed 1)
+    ✓ transactionSchema rejects invalid amounts (killed 7)
+    ~ transactionSchema accepts the smallest and largest amounts (covered 27)
+    ✓ transactionSchema rejects invalid type, category and date (killed 7)
+    ✓ transactionQuerySchema applies defaults (killed 5)
+    ✓ transactionQuerySchema coerces numbers and keeps filters (killed 5)
+    ~ transactionQuerySchema bounds page and limit (covered 15)
+    ✓ transactionQuerySchema rejects a reversed date range but allows equal dates (killed 7)
+    ~ transactionQuerySchema rejects an invalid type (covered 9)
+    ✓ budget schemas accepts a valid budget (killed 2)
+    ✓ budget schemas accepts each period (killed 2)
+    ✓ budget schemas rejects bad period, amount and date (killed 2)
+    ✓ budget schemas update ignores the category (killed 2)
+    ✓ idParamSchema / analyticsQuerySchema coerces a positive integer id (killed 1)
+    ~ idParamSchema / analyticsQuerySchema rejects zero, negatives, fractions and text (covered 9)
+    ✓ idParamSchema / analyticsQuerySchema analytics months default to 6 and are bounded to 1..24 (killed 3)
+
+[Survived] OptionalChaining
+src/services/aiClient.js:31:16
+-     const text = body.content?.[0]?.text ?? "";
++     const text = body.content?.[0].text ?? "";
+Tests ran:
+    aiInsights calls the provider with the key, model and aggregated data only
+    aiInsights parses the model's JSON array, tolerating surrounding prose
+    aiInsights defaults an unknown severity to info and drops malformed items
+  and 3 more tests!
+
+
+[Survived] OptionalChaining
+src/services/aiClient.js:31:16
+-     const text = body.content?.[0]?.text ?? "";
++     const text = body.content[0]?.text ?? "";
+Tests ran:
+    aiInsights calls the provider with the key, model and aggregated data only
+    aiInsights parses the model's JSON array, tolerating surrounding prose
+    aiInsights defaults an unknown severity to info and drops malformed items
+  and 3 more tests!
+
+
+[Survived] StringLiteral
+src/services/aiClient.js:31:43
+-     const text = body.content?.[0]?.text ?? "";
++     const text = body.content?.[0]?.text ?? "Stryker was here!";
+Tests ran:
+    aiInsights throws when the answer is not JSON, so the caller can fall back
+
+
+[Survived] StringLiteral
+src/services/aiClient.js:38:18
+-         severity: ["info", "warning", "critical", "positive"].includes(i.severity) ? i.severity : "info",
++         severity: ["", "warning", "critical", "positive"].includes(i.severity) ? i.severity : "info",
+Tests ran:
+    aiInsights calls the provider with the key, model and aggregated data only
+    aiInsights parses the model's JSON array, tolerating surrounding prose
+    aiInsights defaults an unknown severity to info and drops malformed items
+  and 2 more tests!
+
+
+[Survived] EqualityOperator
+src/services/insightRules.js:54:7
+-     if (summary.expenses > 0 && categoryThisMonth.length > 0) {
++     if (summary.expenses >= 0 && categoryThisMonth.length > 0) {
+Tests ran:
+    generateInsights asks for data when the month is empty
+    generateInsights says things are steady when there is data but nothing to flag
+    generateInsights budgets critical when exceeded, with the overspend amount
+  and 24 more tests!
+
+
+[Survived] ConditionalExpression
+src/services/insightRules.js:54:7
+-     if (summary.expenses > 0 && categoryThisMonth.length > 0) {
++     if (true && categoryThisMonth.length > 0) {
+Tests ran:
+    generateInsights asks for data when the month is empty
+    generateInsights says things are steady when there is data but nothing to flag
+    generateInsights budgets critical when exceeded, with the overspend amount
+  and 24 more tests!
+
+
+[Survived] EqualityOperator
+src/services/insightRules.js:66:31
+-     if (previousExpenses > 0 && summary.expenses > previousExpenses) {
++     if (previousExpenses > 0 && summary.expenses >= previousExpenses) {
+Tests ran:
+    generateInsights month over month flags +20%
+    generateInsights month over month is a warning
+    generateInsights month over month message states the percentage
+  and 3 more tests!
+
+
+[Survived] ConditionalExpression
+src/services/insightRules.js:66:31
+-     if (previousExpenses > 0 && summary.expenses > previousExpenses) {
++     if (previousExpenses > 0 && true) {
+Tests ran:
+    generateInsights month over month flags +20%
+    generateInsights month over month is a warning
+    generateInsights month over month message states the percentage
+  and 3 more tests!
+
+
+[Survived] ConditionalExpression
+src/services/insightRules.js:104:9
+-           summary.income === 0 && summary.expenses === 0
++           true && summary.expenses === 0
+Tests ran:
+    generateInsights asks for data when the month is empty
+    generateInsights says things are steady when there is data but nothing to flag
+    generateInsights budgets silent when ok
+  and 2 more tests!
+
+
+[Survived] ConditionalExpression
+src/utils/dates.js:7:7
+-     if (typeof value !== "string" || !ISO.test(value)) return false;
++     if (false || !ISO.test(value)) return false;
+Tests ran:
+    transactionSchema accepts a valid payload and coerces the category id
+    transactionSchema defaults the description to empty
+    transactionSchema limits the description to 200 characters
+  and 26 more tests!
+
+
+[Survived] ConditionalExpression
+src/utils/dates.js:7:7
+-     if (typeof value !== "string" || !ISO.test(value)) return false;
++     if (false) return false;
+Tests ran:
+    transactionSchema accepts a valid payload and coerces the category id
+    transactionSchema defaults the description to empty
+    transactionSchema limits the description to 200 characters
+  and 26 more tests!
+
+
+[Survived] LogicalOperator
+src/utils/dates.js:7:7
+-     if (typeof value !== "string" || !ISO.test(value)) return false;
++     if (typeof value !== "string" && !ISO.test(value)) return false;
+Tests ran:
+    transactionSchema accepts a valid payload and coerces the category id
+    transactionSchema defaults the description to empty
+    transactionSchema limits the description to 200 characters
+  and 26 more tests!
+
+
+[Survived] Regex
+src/utils/dates.js:4:13
+-   const ISO = /^\d{4}-\d{2}-\d{2}$/;
++   const ISO = /\d{4}-\d{2}-\d{2}$/;
+Ran all tests for this mutant.
+
+[Survived] Regex
+src/utils/dates.js:4:13
+-   const ISO = /^\d{4}-\d{2}-\d{2}$/;
++   const ISO = /^\d{4}-\d{2}-\d{2}/;
+Ran all tests for this mutant.
+
+[Survived] StringLiteral
+src/validators/index.js:11:24
+-       field: i.path.join("."),
++       field: i.path.join(""),
+Tests ran:
+    parse throws a 400 VALIDATION_ERROR with field details
+    parse treats an undefined body as empty
+    registerSchema requires a name
+  and 15 more tests!
+
+
+[Survived] EqualityOperator
+src/validators/index.js:25:18
+-     .refine((n) => Math.abs(n * 100 - Math.round(n * 100)) < 1e-6, {
++     .refine((n) => Math.abs(n * 100 - Math.round(n * 100)) <= 1e-6, {
+Tests ran:
+    transactionSchema accepts a valid payload and coerces the category id
+    transactionSchema defaults the description to empty
+    transactionSchema limits the description to 200 characters
+  and 7 more tests!
+
+
+[Survived] StringLiteral
+src/validators/index.js:39:70
+-       for (const message of passwordProblems(pw)) ctx.addIssue({ code: "custom", message });
++       for (const message of passwordProblems(pw)) ctx.addIssue({ code: "", message });
+Tests ran:
+    registerSchema applies the password policy
+
+
+[Survived] ObjectLiteral
+src/validators/index.js:48:40
+-   export const categorySchema = z.object({
+-     name: z.string({ error: "Name is required" }).trim().min(1).max(50, "Name is too long"),
+-     type: kind,
+-   });
++   export const categorySchema = z.object({});
+Ran all tests for this mutant.
+
+[Survived] ObjectLiteral
+src/validators/index.js:75:38
+-   export const budgetSchema = z.object({
+-     categoryId: id,
+-     amount: positiveAmount,
+-     period: z.enum(["weekly", "monthly", "yearly"], { error: "Period must be weekly, monthly or yearly" }),
+-     startDate: isoDate,
+-   });
++   export const budgetSchema = z.object({});
+Ran all tests for this mutant.
+
+Ran 4.91 tests per mutant on average.
+-------------------|------------------|----------|-----------|------------|----------|----------|
+                   | % Mutation score |          |           |            |          |          |
+File               |  total | covered | # killed | # timeout | # survived | # no cov | # errors |
+-------------------|--------|---------|----------|-----------|------------|----------|----------|
+All files          |  96.53 |   96.53 |      527 |         1 |         19 |        0 |        0 |
+ errors            | 100.00 |  100.00 |       11 |         0 |          0 |        0 |        0 |
+  index.js         | 100.00 |  100.00 |       11 |         0 |          0 |        0 |        0 |
+ middleware        | 100.00 |  100.00 |       35 |         0 |          0 |        0 |        0 |
+  errorHandler.js  | 100.00 |  100.00 |       35 |         0 |          0 |        0 |        0 |
+ services          |  96.94 |   96.94 |      284 |         1 |          9 |        0 |        0 |
+  aiClient.js      |  91.67 |   91.67 |       44 |         0 |          4 |        0 |        0 |
+  analyticsCalc.js | 100.00 |  100.00 |       70 |         1 |          0 |        0 |        0 |
+  budgetCalc.js    | 100.00 |  100.00 |       23 |         0 |          0 |        0 |        0 |
+  insightRules.js  |  96.71 |   96.71 |      147 |         0 |          5 |        0 |        0 |
+ utils             |  95.10 |   95.10 |       97 |         0 |          5 |        0 |        0 |
+  dates.js         |  92.86 |   92.86 |       65 |         0 |          5 |        0 |        0 |
+  money.js         | 100.00 |  100.00 |        4 |         0 |          0 |        0 |        0 |
+  password.js      | 100.00 |  100.00 |       28 |         0 |          0 |        0 |        0 |
+ validators        |  95.24 |   95.24 |      100 |         0 |          5 |        0 |        0 |
+  index.js         |  95.24 |   95.24 |      100 |         0 |          5 |        0 |        0 |
+-------------------|--------|---------|----------|-----------|------------|----------|----------|
+[32m12:01:18 (158331) INFO MutationTestReportHelper[39m Final mutation score of 96.53 is greater than or equal to break threshold 80
+[32m12:01:18 (158331) INFO JsonReporter[39m Your report can be found at: file:///home/tejvir-singh/Desktop/FInEdge/backend/reports/mutation/mutation.json
+[32m12:01:18 (158331) INFO HtmlReporter[39m Your report can be found at: file:///home/tejvir-singh/Desktop/FInEdge/backend/reports/mutation/mutation.html
+[32m12:01:18 (158331) INFO MutationTestExecutor[39m Done in 21 seconds.
+[exit code: 0]

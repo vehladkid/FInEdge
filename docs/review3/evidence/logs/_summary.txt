@@ -1,0 +1,14 @@
+01-backend-npm-ci            exit 0
+02-backend-lint              exit 0
+03-backend-unit              exit 0
+04-backend-integration       exit 0
+05-backend-coverage          exit 0
+06-backend-mutation          exit 0
+07-frontend-npm-ci           exit 0
+08-frontend-lint             exit 0
+09-frontend-unit             exit 0
+10-frontend-coverage         exit 0
+11-frontend-build            exit 0
+12-regression-e2e            exit 0
+13-docker-build-backend      exit 0
+14-docker-build-frontend     exit 0

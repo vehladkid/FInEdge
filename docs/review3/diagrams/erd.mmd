@@ -1,0 +1,44 @@
+erDiagram
+  USERS ||--o{ CATEGORIES : owns
+  USERS ||--o{ TRANSACTIONS : records
+  USERS ||--o{ BUDGETS : sets
+  CATEGORIES ||--o{ TRANSACTIONS : classifies
+  CATEGORIES ||--o{ BUDGETS : "limits spending of"
+
+  USERS {
+    int id PK
+    varchar name
+    varchar email "unique (case-insensitive)"
+    varchar password_hash "bcrypt"
+    timestamptz created_at
+    timestamptz updated_at
+  }
+  CATEGORIES {
+    int id PK
+    int user_id FK "ON DELETE CASCADE"
+    varchar name "unique with user_id, type"
+    varchar type "income | expense"
+    timestamptz created_at
+  }
+  TRANSACTIONS {
+    int id PK
+    int user_id FK "ON DELETE CASCADE"
+    int category_id FK "ON DELETE RESTRICT"
+    numeric amount "CHECK amount > 0"
+    varchar type "income | expense"
+    varchar description
+    date transaction_date
+    timestamptz created_at
+    timestamptz updated_at
+  }
+  BUDGETS {
+    int id PK
+    int user_id FK "ON DELETE CASCADE"
+    int category_id FK "ON DELETE CASCADE"
+    numeric amount "CHECK amount > 0"
+    varchar period "weekly | monthly | yearly"
+    date start_date
+    date end_date "CHECK end_date >= start_date"
+    timestamptz created_at
+    timestamptz updated_at
+  }

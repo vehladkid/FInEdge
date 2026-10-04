@@ -1,0 +1,35 @@
+sequenceDiagram
+  actor U as User
+  participant UI as Login page (React)
+  participant A as AuthContext
+  participant API as services/api.js
+  participant R as Express routes
+  participant V as validate (zod)
+  participant S as authService
+  participant DB as PostgreSQL
+  U->>UI: enter email + password, submit
+  UI->>A: login({email, password})
+  A->>API: POST /api/auth/login
+  API->>R: JSON body
+  R->>V: loginSchema
+  alt invalid payload
+    V-->>API: 400 VALIDATION_ERROR
+    API-->>UI: ApiError message shown
+  else valid
+    R->>S: login(credentials)
+    S->>DB: SELECT user WHERE lower(email)
+    DB-->>S: user row (or none)
+    S->>S: bcrypt.compare(password, hash)
+    alt unknown email or wrong password
+      S-->>API: 401 INVALID_CREDENTIALS
+      API-->>UI: "Invalid email or password"
+    else success
+      S->>S: sign JWT (sub = user id, 2h)
+      S-->>API: 200 {user, token}
+      API-->>A: data
+      A->>A: store token (localStorage), status = authenticated
+      A-->>UI: navigate to requested page / dashboard
+      UI->>API: GET /api/dashboard (Authorization: Bearer)
+      API->>R: requireAuth verifies JWT
+    end
+  end

@@ -1,0 +1,20 @@
+$ (cd backend && npm run test:integration)
+
+> finedge-backend@0.1.0 test:integration
+> vitest run --config vitest.integration.config.js
+
+
+ RUN  v3.2.7 /home/tejvir-singh/Desktop/FInEdge/backend
+
+ ✓ tests/integration/budgets.test.js (14 tests) 673ms
+ ✓ tests/integration/transactions.test.js (22 tests) 1113ms
+ ✓ tests/integration/reports.test.js (12 tests) 1011ms
+ ✓ tests/integration/auth.test.js (18 tests) 586ms
+ ✓ tests/integration/categories.test.js (9 tests) 570ms
+
+ Test Files  5 passed (5)
+      Tests  75 passed (75)
+   Start at  12:00:43
+   Duration  5.72s (transform 105ms, setup 133ms, collect 867ms, tests 3.95s, environment 1ms, prepare 213ms)
+
+[exit code: 0]

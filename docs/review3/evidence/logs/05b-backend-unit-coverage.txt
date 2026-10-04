@@ -1,0 +1,43 @@
+$ (cd backend && npx vitest run --config vitest.unit.config.js --coverage)
+
+ RUN  v3.2.7 /home/tejvir-singh/Desktop/FInEdge/backend
+      Coverage enabled with v8
+
+ ✓ tests/unit/dates.test.js (26 tests) 6ms
+ ✓ tests/unit/budgetCalc.test.js (10 tests) 7ms
+ ✓ tests/unit/money.test.js (1 test) 3ms
+ ✓ tests/unit/password.test.js (10 tests) 7ms
+ ✓ tests/unit/analyticsCalc.test.js (14 tests) 6ms
+ ✓ tests/unit/insightRules.test.js (27 tests) 25ms
+ ✓ tests/unit/aiClient.test.js (8 tests) 55ms
+ ✓ tests/unit/errorHandler.test.js (7 tests) 53ms
+ ✓ tests/unit/validators.test.js (32 tests) 20ms
+
+ Test Files  9 passed (9)
+      Tests  135 passed (135)
+   Start at  12:03:44
+   Duration  598ms (transform 189ms, setup 0ms, collect 374ms, tests 181ms, environment 2ms, prepare 1.12s)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   99.22 |    99.22 |   96.55 |   99.22 |                   
+ errors            |     100 |      100 |     100 |     100 |                   
+  index.js         |     100 |      100 |     100 |     100 |                   
+ middleware        |     100 |      100 |     100 |     100 |                   
+  errorHandler.js  |     100 |      100 |     100 |     100 |                   
+ services          |     100 |      100 |     100 |     100 |                   
+  aiClient.js      |     100 |      100 |     100 |     100 |                   
+  analyticsCalc.js |     100 |      100 |     100 |     100 |                   
+  budgetCalc.js    |     100 |      100 |     100 |     100 |                   
+  insightRules.js  |     100 |      100 |     100 |     100 |                   
+ utils             |   96.05 |    96.77 |    90.9 |   96.05 |                   
+  clock.js         |       0 |        0 |       0 |       0 | 1-4               
+  dates.js         |     100 |      100 |     100 |     100 |                   
+  money.js         |     100 |      100 |     100 |     100 |                   
+  password.js      |     100 |      100 |     100 |     100 |                   
+ validators        |     100 |      100 |     100 |     100 |                   
+  index.js         |     100 |      100 |     100 |     100 |                   
+-------------------|---------|----------|---------|---------|-------------------
+[exit code: 0]

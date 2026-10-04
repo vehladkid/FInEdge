@@ -1,0 +1,32 @@
+flowchart LR
+  V(["Visitor"])
+  U(["Registered user"])
+  AI(["AI provider<br/>(optional)"])
+  V --> UC1["Register account"]
+  V --> UC2["Log in"]
+  U --> UC3["Log out"]
+  U --> UC4["Record income / expense"]
+  U --> UC5["Edit or delete transaction"]
+  U --> UC6["Filter & page transactions"]
+  U --> UC7["Manage categories"]
+  U --> UC8["Create / edit / delete budget"]
+  U --> UC9["View dashboard"]
+  U --> UC10["View analytics"]
+  U --> UC11["View financial insights"]
+  UC4 -. "includes" .-> UC2
+  UC8 -. "includes" .-> UC2
+  UC11 -. "extends (if key set)" .-> AI
+  V -. "becomes" .-> U
+  subgraph FinEdge
+    UC1
+    UC2
+    UC3
+    UC4
+    UC5
+    UC6
+    UC7
+    UC8
+    UC9
+    UC10
+    UC11
+  end
