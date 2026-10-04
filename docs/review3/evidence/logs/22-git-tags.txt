@@ -1,0 +1,2 @@
+$ git tag -n
+v1.0.0          FinEdge v1.0.0 — Review 3 release

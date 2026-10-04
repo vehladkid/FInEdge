@@ -1,0 +1,38 @@
+$ git log --graph --decorate --format=%h %<(10,trunc)%an %ad %d %s --date=short --all
+*   709ce8a vehladkid  2026-10-04  (HEAD -> main, tag: v1.0.0) Merge fix/compose-volume-name
+|\  
+| * 4d713f4 vehladkid  2026-10-04  (fix/compose-volume-name) fix(docker): name the PostgreSQL volume explicitly
+|/  
+*   1810fac vehladkid  2026-10-04  Merge docs/review3-documentation: Review 3 documentation and evidence
+|\  
+| * 08fbf56 vehladkid  2026-10-04  (docs/review3-documentation) docs: README, SRS, architecture, design of tests, diagrams and evidence for Review 3
+|/  
+*   0d39f9a vehladkid  2026-10-04  Merge feature/mutation-hardening
+|\  
+| * 969a370 vehladkid  2026-10-04  (feature/mutation-hardening) test(backend): assert the AI prompt's response schema
+|/  
+*   485e287 vehladkid  2026-10-04  Merge ci/github-actions: GitHub Actions pipeline
+|\  
+| * 1f7b5ad vehladkid  2026-10-04  (ci/github-actions) ci: lint, unit, integration, mutation, build, Playwright and Docker jobs
+|/  
+*   b0fa7fc vehladkid  2026-10-04  Merge feature/testing: unit, integration, regression and mutation testing
+|\  
+| * 6400ebd vehladkid  2026-10-04  (feature/testing) test(frontend): Vitest + Testing Library unit tests and Playwright regression suite
+| * b96772f vehladkid  2026-10-04  test(backend): unit, integration (Supertest + PostgreSQL) and Stryker mutation tests
+|/  
+*   ea82389 vehladkid  2026-10-04  Merge feature/frontend-integration: React app backed by the real API
+|\  
+| * be7de90 vehladkid  2026-10-04  (feature/frontend-integration) feat(frontend): connect the UI to the API with auth, protected routes and real data
+|/  
+*   f24c99a vehladkid  2026-10-04  Merge feature/backend-api: persistent PostgreSQL-backed REST API
+|\  
+| * 7c6be8c vehladkid  2026-10-04  (feature/backend-api) build(docker): run migrations on backend start, add postgres healthcheck and JWT/CORS config
+| * 85c60eb vehladkid  2026-10-04  feat(api): authentication, transactions, categories, budgets, analytics and insights
+| * da071b7 vehladkid  2026-10-04  feat(db): PostgreSQL schema, migration runner and database bootstrap script
+|/  
+* 64e17b1 vehladkid  2026-09-11  (origin/main, origin/feature/software-design, origin/HEAD, feature/software-design) Add budget creation to the Budget screen
+* 1f9aab3 vehladkid  2026-09-11  Remove stray .claude editor artifact from version control
+* 2bf1c3f vehladkid  2026-09-10  Refactor into layered architecture and add design documentation
+* b435a19 vehladkid  2026-07-31  Add core app pages (Dashboard, Analytics, Budget, Login, AddTransaction) and NavBar
+* b1a1650 vehladkid  2026-07-31  Restyle landing page with Tailwind: nav, hero, status pill, feature cards
+* d14cf3a vehladkid  2026-07-31  Initial FinEdge MVP skeleton: frontend, backend, docker-compose, README

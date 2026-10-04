@@ -1,0 +1,21 @@
+$ git log --oneline --no-merges | head -30
+4d713f4 fix(docker): name the PostgreSQL volume explicitly
+08fbf56 docs: README, SRS, architecture, design of tests, diagrams and evidence for Review 3
+969a370 test(backend): assert the AI prompt's response schema
+1f7b5ad ci: lint, unit, integration, mutation, build, Playwright and Docker jobs
+6400ebd test(frontend): Vitest + Testing Library unit tests and Playwright regression suite
+be7de90 feat(frontend): connect the UI to the API with auth, protected routes and real data
+b96772f test(backend): unit, integration (Supertest + PostgreSQL) and Stryker mutation tests
+7c6be8c build(docker): run migrations on backend start, add postgres healthcheck and JWT/CORS config
+85c60eb feat(api): authentication, transactions, categories, budgets, analytics and insights
+da071b7 feat(db): PostgreSQL schema, migration runner and database bootstrap script
+64e17b1 Add budget creation to the Budget screen
+1f9aab3 Remove stray .claude editor artifact from version control
+2bf1c3f Refactor into layered architecture and add design documentation
+b435a19 Add core app pages (Dashboard, Analytics, Budget, Login, AddTransaction) and NavBar
+b1a1650 Restyle landing page with Tailwind: nav, hero, status pill, feature cards
+d14cf3a Initial FinEdge MVP skeleton: frontend, backend, docker-compose, README
+
+$ git remote -v
+origin	https://github.com/vehladkid/FInEdge.git (fetch)
+origin	https://github.com/vehladkid/FInEdge.git (push)
