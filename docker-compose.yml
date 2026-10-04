@@ -43,3 +43,6 @@ services:
 
 volumes:
   postgres_data:
+    # Explicit name so databases from earlier schema versions (volume
+    # "finedge_postgres_data") are never mounted into this one.
+    name: finedge_pg16_data
