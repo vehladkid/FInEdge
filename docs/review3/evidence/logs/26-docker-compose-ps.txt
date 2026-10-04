@@ -1,0 +1,6 @@
+$ docker-compose ps
+       Name                     Command                  State                        Ports                  
+-------------------------------------------------------------------------------------------------------------
+finedge_backend_1    docker-entrypoint.sh sh -c ...   Up             0.0.0.0:5000->5000/tcp,:::5000->5000/tcp
+finedge_frontend_1   docker-entrypoint.sh npm r ...   Up             0.0.0.0:5173->5173/tcp,:::5173->5173/tcp
+finedge_postgres_1   docker-entrypoint.sh postgres    Up (healthy)   0.0.0.0:5433->5432/tcp,:::5433->5432/tcp

@@ -1,0 +1,13 @@
+$ git branch -a -vv
+  ci/github-actions                      1f7b5ad ci: lint, unit, integration, mutation, build, Playwright and Docker jobs
+  docs/review3-documentation             08fbf56 docs: README, SRS, architecture, design of tests, diagrams and evidence for Review 3
+  feature/backend-api                    7c6be8c build(docker): run migrations on backend start, add postgres healthcheck and JWT/CORS config
+  feature/frontend-integration           be7de90 feat(frontend): connect the UI to the API with auth, protected routes and real data
+  feature/mutation-hardening             969a370 test(backend): assert the AI prompt's response schema
+  feature/software-design                64e17b1 [origin/feature/software-design] Add budget creation to the Budget screen
+  feature/testing                        6400ebd test(frontend): Vitest + Testing Library unit tests and Playwright regression suite
+  fix/compose-volume-name                4d713f4 fix(docker): name the PostgreSQL volume explicitly
+* main                                   709ce8a [origin/main: ahead 17] Merge fix/compose-volume-name
+  remotes/origin/HEAD                    -> origin/main
+  remotes/origin/feature/software-design 64e17b1 Add budget creation to the Budget screen
+  remotes/origin/main                    64e17b1 Add budget creation to the Budget screen
