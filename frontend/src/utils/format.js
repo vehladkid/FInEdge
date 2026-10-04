@@ -1,14 +1,11 @@
-// Currency rendering was done three different ways: a hardcoded "$4,250" string,
-// a `${b.spent}` template, and `.toFixed(2)` with a hand-written sign.
-//
-// ponytail: `decimals` is an explicit argument rather than a fixed default because
-// the existing screens genuinely differ — the dashboard shows whole dollars
-// ("$4,250") and the transaction list shows cents ("$42.10"). Defaulting to 2 would
-// have silently changed the dashboard.
+// `decimals` is an explicit argument because the screens genuinely differ — the
+// dashboard cards show cents ("$42.10") where the landing preview shows whole dollars.
+// Negative amounts put the sign before the symbol ("-$42.10", not "$-42.10").
 
 export function formatCurrency(amount, decimals = 0) {
-  return `$${amount.toLocaleString("en-US", {
+  const abs = Math.abs(amount).toLocaleString("en-US", {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
-  })}`;
+  });
+  return `${amount < 0 && Number(abs.replace(/,/g, "")) !== 0 ? "-" : ""}$${abs}`;
 }

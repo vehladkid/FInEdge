@@ -35,3 +35,6 @@ export const tooltipStyle = {
 
 // Shared XAxis/YAxis presentation.
 export const axisStyle = { stroke: palette.muted, fontSize: 12 };
+
+// Hover highlight behind a bar; Recharts' default is an opaque light grey.
+export const barCursor = { fill: "rgba(148, 163, 184, 0.12)" };

@@ -1,82 +1,51 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-const DEMO_EMAIL = "student@vit.edu";
-const DEMO_PASSWORD = "demo1234";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { fieldClass, labelClass, primaryButton } from "../components/ui/States";
 
 export default function Login() {
+  const { login } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState(DEMO_EMAIL);
-  const [password, setPassword] = useState(DEMO_PASSWORD);
+  const location = useLocation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
-      setError("");
-      navigate("/dashboard");
-    } else {
-      setError("Invalid credentials — use the demo login shown above.");
+    setError("");
+    if (!email.trim() || !password) return setError("Enter your email and password.");
+    setBusy(true);
+    try {
+      await login({ email, password });
+      navigate(location.state?.from ?? "/dashboard", { replace: true });
+    } catch (err) {
+      setError(err.message);
+      setBusy(false);
     }
   };
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-slate-950 px-4 font-sans text-slate-100">
-      <Link to="/" className="mb-8 text-xl font-bold tracking-tight text-white">
-        FinEdge
-      </Link>
-
+      <Link to="/" className="mb-8 text-xl font-bold tracking-tight text-white">FinEdge</Link>
       <div className="w-full max-w-sm rounded-xl border border-slate-800 bg-slate-900/60 p-8">
         <h1 className="text-center text-2xl font-bold text-white">Login</h1>
-        <p className="mt-2 text-center text-xs text-slate-500">
-          Demo login: {DEMO_EMAIL} / {DEMO_PASSWORD}
-        </p>
-
-        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
-              Email
-            </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder={DEMO_EMAIL}
-              className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:outline-none"
-            />
+            <label htmlFor="email" className={labelClass}>Email</label>
+            <input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className={fieldClass} />
           </div>
-
           <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder={DEMO_PASSWORD}
-              className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:outline-none"
-            />
+            <label htmlFor="password" className={labelClass}>Password</label>
+            <input id="password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} className={fieldClass} />
           </div>
-
-          {error && <p className="text-sm text-rose-400">{error}</p>}
-
-          <button
-            type="submit"
-            className="w-full rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-400"
-          >
-            Login
-          </button>
+          {error && <p role="alert" className="text-sm text-rose-400">{error}</p>}
+          <button type="submit" disabled={busy} className={`w-full ${primaryButton}`}>{busy ? "Signing in…" : "Login"}</button>
         </form>
-
-        <div className="mt-5 flex items-center justify-between text-sm text-slate-400">
-          <a href="#" className="hover:text-white">
-            Forgot password?
-          </a>
-          <a href="#" className="hover:text-white">
-            Register here
-          </a>
-        </div>
+        <p className="mt-5 text-center text-sm text-slate-400">
+          New to FinEdge? <Link to="/register" className="text-indigo-400 hover:text-white">Create an account</Link>
+        </p>
       </div>
     </div>
   );

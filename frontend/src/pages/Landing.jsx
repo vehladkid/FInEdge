@@ -55,7 +55,7 @@ export default function Landing() {
               Login
             </Link>
             <Link
-              to="/login"
+              to="/register"
               className="rounded-md border border-slate-700 px-3 py-1.5 text-sm text-white transition hover:border-slate-500"
             >
               Sign Up
@@ -80,7 +80,7 @@ export default function Landing() {
 
             <div className="mt-8 flex items-center gap-4">
               <Link
-                to="/login"
+                to="/register"
                 className="rounded-md bg-indigo-500 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-400"
               >
                 Get Started
@@ -96,9 +96,9 @@ export default function Landing() {
             <div className="mt-10 h-px w-16 bg-indigo-500" />
           </div>
 
-          {/* Right: mock UI panel */}
+          {/* Right: illustrative preview panel (sample data, not the user's) */}
           <div className="rounded-lg border border-slate-800 bg-slate-900 p-5">
-            <p className="text-xs text-slate-500">Total Balance</p>
+            <p className="text-xs text-slate-500">Sample balance</p>
             <p className="mt-1 text-2xl font-semibold text-white">
               {formatCurrency(getPreviewBalance(), 2)}
             </p>

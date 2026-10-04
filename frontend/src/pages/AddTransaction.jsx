@@ -1,116 +1,36 @@
 import { useState } from "react";
 import PageShell from "../layouts/PageShell";
 import Card from "../components/ui/Card";
-import { CATEGORIES } from "../domain/categories";
-
-const INITIAL_FORM = {
-  amount: "",
-  type: "Expense",
-  category: CATEGORIES[0].label,
-  date: "",
-  note: "",
-};
+import TransactionForm from "../components/TransactionForm";
+import { ErrorMessage, Loading } from "../components/ui/States";
+import { useAsync } from "../hooks/useAsync";
+import { createTransaction, getCategories } from "../services/finance";
 
 export default function AddTransaction() {
-  const [form, setForm] = useState(INITIAL_FORM);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Transaction (mock):", form);
-    setForm(INITIAL_FORM);
-  };
+  const { data: categories, error, loading, reload } = useAsync(() => getCategories());
+  const [saved, setSaved] = useState(false);
 
   return (
     <PageShell title="Add Transaction" maxWidth="max-w-xl">
-      <Card className="mt-6">
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
-              Amount
-            </label>
-            <input
-              type="number"
-              name="amount"
-              value={form.amount}
-              onChange={handleChange}
-              placeholder="0.00"
-              className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
-              Type
-            </label>
-            <select
-              name="type"
-              value={form.type}
-              onChange={handleChange}
-              className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-indigo-500 focus:outline-none"
-            >
-              <option>Expense</option>
-              <option>Income</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
-              Category
-            </label>
-            <select
-              name="category"
-              value={form.category}
-              onChange={handleChange}
-              className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-indigo-500 focus:outline-none"
-            >
-              {CATEGORIES.map((category) => (
-                <option key={category.id} value={category.label}>
-                  {category.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
-              Date
-            </label>
-            <input
-              type="date"
-              name="date"
-              value={form.date}
-              onChange={handleChange}
-              className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-slate-100 focus:border-indigo-500 focus:outline-none"
-            />
-          </div>
-
-          <div>
-            <label className="mb-1 block text-sm font-medium text-slate-300">
-              Note
-            </label>
-            <textarea
-              name="note"
-              value={form.note}
-              onChange={handleChange}
-              rows={3}
-              placeholder="Optional note..."
-              className="w-full resize-none rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:outline-none"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-400"
-          >
-            Save
-          </button>
-        </form>
-      </Card>
+      {loading && <Loading />}
+      {error && <ErrorMessage error={error} onRetry={reload} />}
+      {categories && (
+        <Card className="mt-6">
+          {saved && (
+            <p role="status" className="mb-4 rounded-lg border border-emerald-500/40 bg-emerald-500/10 p-3 text-sm text-emerald-300">
+              Transaction saved.
+            </p>
+          )}
+          <TransactionForm
+            categories={categories}
+            onSubmit={(payload) => {
+              setSaved(false);
+              return createTransaction(payload);
+            }}
+            onSaved={() => setSaved(true)}
+          />
+        </Card>
+      )}
     </PageShell>
   );
 }
