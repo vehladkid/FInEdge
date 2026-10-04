@@ -34,6 +34,7 @@ describe("aiInsights", () => {
     expect(body.messages[0].role).toBe("user");
     expect(body.messages[0].content).toContain("personal finance assistant");
     expect(body.messages[0].content).toContain("JSON array");
+    expect(body.messages[0].content).toContain('"severity":"info|warning|critical|positive"');
     expect(body.messages[0].content).toContain(JSON.stringify(data));
   });
 
